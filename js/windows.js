@@ -8,7 +8,21 @@ class WindowsManager {
     }
     
     createWindow(title = 'New Window', content = '', options = {}) {
+        if (!this.container) {
+            this.container = document.getElementById('windows-container');
+        }
+        
+        if (!this.container) {
+            console.error('Windows container not found');
+            return null;
+        }
+        
         const template = document.getElementById('window-template');
+        if (!template) {
+            console.error('Window template not found');
+            return null;
+        }
+        
         const windowEl = template.content.cloneNode(true).querySelector('.floating-window');
         
         // Set unique ID

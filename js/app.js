@@ -27,8 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSharedFiles();
     agentsManager.renderAgentsList('agents-list');
     
-    // Create welcome window
-    createWelcomeWindow();
+    // Welcome window disabled for now to avoid timing issues
+    // TODO: Fix window creation timing
+    // setTimeout(() => {
+    //     createWelcomeWindow();
+    // }, 100);
 });
 
 function setupToolbar() {
