@@ -3,6 +3,7 @@ let whiteboard;
 let agentsManager;
 let windowsManager;
 let sharedFiles = [];
+let nextFileId = 1;
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', () => {
@@ -53,17 +54,21 @@ function setupToolbar() {
     
     // Color picker
     const colorPicker = document.getElementById('color-picker');
-    colorPicker.addEventListener('change', (e) => {
-        whiteboard.setColor(e.target.value);
-    });
+    if (colorPicker) {
+        colorPicker.addEventListener('change', (e) => {
+            whiteboard.setColor(e.target.value);
+        });
+    }
     
     // Brush size
     const brushSize = document.getElementById('brush-size');
     const brushSizeDisplay = document.getElementById('brush-size-display');
-    brushSize.addEventListener('input', (e) => {
-        whiteboard.setBrushSize(parseInt(e.target.value));
-        brushSizeDisplay.textContent = e.target.value + 'px';
-    });
+    if (brushSize && brushSizeDisplay) {
+        brushSize.addEventListener('input', (e) => {
+            whiteboard.setBrushSize(parseInt(e.target.value));
+            brushSizeDisplay.textContent = e.target.value + 'px';
+        });
+    }
     
     // Clear button
     document.getElementById('btn-clear').addEventListener('click', () => {
@@ -165,8 +170,9 @@ function setupSharedFiles() {
 }
 
 function addSharedFile(name) {
+    const fileId = nextFileId++;
     const file = {
-        id: Date.now(),
+        id: fileId,
         name: name,
         content: '',
         createdAt: new Date().toISOString(),
@@ -191,9 +197,14 @@ function openSharedFile(id) {
     // Create a floating window with the file content
     const windowId = windowsManager.createWindow(file.name, file.content);
     
+    if (!windowId) return;
+    
     // Save content when changed
     const windowEl = document.getElementById(`window-${windowId}`);
+    if (!windowEl) return;
+    
     const textarea = windowEl.querySelector('.window-textarea');
+    if (!textarea) return;
     
     textarea.addEventListener('input', () => {
         file.content = textarea.value;
@@ -210,6 +221,11 @@ function loadSharedFiles() {
     const saved = localStorage.getItem('whiteboard-shared-files');
     if (saved) {
         sharedFiles = JSON.parse(saved);
+        // Update nextFileId to be higher than any existing file ID
+        if (sharedFiles.length > 0) {
+            const maxId = Math.max(...sharedFiles.map(f => f.id));
+            nextFileId = maxId + 1;
+        }
         renderSharedFiles();
     }
 }
@@ -269,7 +285,7 @@ function createWelcomeWindow() {
             <li>Add agents using the "Agents" panel</li>
             <li>Create shared files in the "Shared Files" panel</li>
             <li>Use the toolbar to draw and annotate the whiteboard</li>
-            <li>Double-click to create new floating windows</li>
+            <li>Shared files open in floating windows when clicked</li>
         </ol>
         <p style="margin-top: 20px; color: #7f8c8d; font-size: 12px;">
             You can close this window and create new ones anytime.
