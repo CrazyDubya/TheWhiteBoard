@@ -5,6 +5,7 @@ class WindowsManager {
         this.container = document.getElementById('windows-container');
         this.nextZIndex = 10;
         this.activeWindow = null;
+        this.nextWindowId = 1;
     }
     
     createWindow(title = 'New Window', content = '', options = {}) {
@@ -25,8 +26,8 @@ class WindowsManager {
         
         const windowEl = template.content.cloneNode(true).querySelector('.floating-window');
         
-        // Set unique ID
-        const windowId = Date.now();
+        // Set unique ID using incrementing counter
+        const windowId = this.nextWindowId++;
         windowEl.id = `window-${windowId}`;
         
         // Set initial position and size

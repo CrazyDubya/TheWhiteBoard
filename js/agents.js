@@ -2,6 +2,7 @@
 class AgentsManager {
     constructor() {
         this.agents = [];
+        this.nextAgentId = 1;
         this.loadAgents();
     }
     
@@ -9,6 +10,11 @@ class AgentsManager {
         const saved = localStorage.getItem('whiteboard-agents');
         if (saved) {
             this.agents = JSON.parse(saved);
+            // Update nextAgentId to be higher than any existing agent ID
+            if (this.agents.length > 0) {
+                const maxId = Math.max(...this.agents.map(a => a.id));
+                this.nextAgentId = maxId + 1;
+            }
         }
     }
     
@@ -19,11 +25,12 @@ class AgentsManager {
     addAgent(name) {
         if (!name.trim()) return false;
         
+        const agentId = this.nextAgentId++;
         const agent = {
-            id: Date.now(),
+            id: agentId,
             name: name.trim(),
             status: 'active',
-            workspace: `agents/agent_${Date.now()}`,
+            workspace: `agents/agent_${agentId}`,
             createdAt: new Date().toISOString()
         };
         
@@ -93,10 +100,21 @@ class AgentsManager {
                     <div class="agent-status">Workspace: ${agent.workspace}</div>
                 </div>
                 <div class="agent-actions">
-                    <button onclick="agentsManager.viewWorkspace(${agent.id})">View</button>
-                    <button onclick="agentsManager.removeAgent(${agent.id}); agentsManager.renderAgentsList('agents-list')">Remove</button>
+                    <button class="agent-view-btn">View</button>
+                    <button class="agent-remove-btn">Remove</button>
                 </div>
             `;
+            
+            // Add event listeners
+            const viewBtn = agentEl.querySelector('.agent-view-btn');
+            const removeBtn = agentEl.querySelector('.agent-remove-btn');
+            
+            viewBtn.addEventListener('click', () => this.viewWorkspace(agent.id));
+            removeBtn.addEventListener('click', () => {
+                this.removeAgent(agent.id);
+                this.renderAgentsList('agents-list');
+            });
+            
             container.appendChild(agentEl);
         });
     }

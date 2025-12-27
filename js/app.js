@@ -231,13 +231,19 @@ function renderSharedFiles() {
         fileEl.innerHTML = `
             <div class="file-name">${file.name}</div>
             <div class="file-actions">
-                <button onclick="removeSharedFile(${file.id})">Delete</button>
+                <button class="file-delete-btn">Delete</button>
             </div>
         `;
         
         // Open file on click (but not on delete button)
         fileEl.querySelector('.file-name').addEventListener('click', () => {
             openSharedFile(file.id);
+        });
+        
+        // Delete button
+        fileEl.querySelector('.file-delete-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            removeSharedFile(file.id);
         });
         
         container.appendChild(fileEl);
