@@ -320,7 +320,8 @@ class Whiteboard {
     }
     
     render() {
-        // Re-render if needed
+        // Reserved for future use: could re-render stored shapes or implement layers
+        // Currently, Canvas API handles all rendering directly during draw operations
     }
     
     takeScreenshot() {
