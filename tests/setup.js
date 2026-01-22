@@ -3,43 +3,43 @@
 
 // Create localStorage mock with jest functions
 class LocalStorageMock {
-  constructor() {
-    this.store = {};
-  }
+    constructor() {
+        this.store = {};
+    }
 
-  clear() {
-    this.store = {};
-  }
+    clear() {
+        this.store = {};
+    }
 
-  getItem(key) {
-    return this.store[key] || null;
-  }
+    getItem(key) {
+        return this.store[key] || null;
+    }
 
-  setItem(key, value) {
-    this.store[key] = String(value);
-  }
+    setItem(key, value) {
+        this.store[key] = String(value);
+    }
 
-  removeItem(key) {
-    delete this.store[key];
-  }
+    removeItem(key) {
+        delete this.store[key];
+    }
 
-  get length() {
-    return Object.keys(this.store).length;
-  }
+    get length() {
+        return Object.keys(this.store).length;
+    }
 
-  key(index) {
-    const keys = Object.keys(this.store);
-    return keys[index] || null;
-  }
+    key(index) {
+        const keys = Object.keys(this.store);
+        return keys[index] || null;
+    }
 }
 
 global.localStorage = new LocalStorageMock();
 
 // Setup DOM for each test
 beforeEach(() => {
-  // Clear localStorage
-  localStorage.clear();
-  
-  // Reset document body
-  document.body.innerHTML = '';
+    // Clear localStorage
+    localStorage.clear();
+
+    // Reset document body
+    document.body.innerHTML = '';
 });

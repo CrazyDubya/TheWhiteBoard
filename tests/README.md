@@ -35,6 +35,7 @@ npm test -- tests/unit/agents.test.js
 Current test coverage includes:
 
 ### AgentsManager (30 tests)
+
 - ✅ Initialization and construction
 - ✅ Agent creation, removal, and retrieval
 - ✅ localStorage persistence (save/load)
@@ -42,12 +43,14 @@ Current test coverage includes:
 - ✅ Agent list rendering
 
 ### WindowsManager (18 tests)
+
 - ✅ Window creation and initialization
 - ✅ Window controls (minimize, maximize, close)
 - ✅ Z-index management
 - ✅ Multiple window handling
 
 ### Whiteboard (13 tests)
+
 - ✅ Canvas initialization
 - ✅ Tool management (draw, pan, text, shapes)
 - ✅ Drawing operations (line, rectangle, circle)
