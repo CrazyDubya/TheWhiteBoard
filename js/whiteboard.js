@@ -211,6 +211,17 @@ class Whiteboard {
         this.updateZoomIndicator();
     }
 
+    /**
+     * Draws a line on the canvas between two points.
+     *
+     * @param {number} x1 - Starting X coordinate
+     * @param {number} y1 - Starting Y coordinate
+     * @param {number} x2 - Ending X coordinate
+     * @param {number} y2 - Ending Y coordinate
+     * @param {string} color - Line color (CSS color string)
+     * @param {number} width - Line width in pixels
+     * @returns {void}
+     */
     drawLine(x1, y1, x2, y2, color, width) {
         this.ctx.strokeStyle = color;
         this.ctx.lineWidth = width;
@@ -223,6 +234,17 @@ class Whiteboard {
         this.ctx.stroke();
     }
 
+    /**
+     * Draws a shape on the canvas.
+     * Supports rectangles and circles.
+     *
+     * @param {string} type - Type of shape ('rect' or 'circle')
+     * @param {number} x1 - Starting X coordinate (or center X for circle)
+     * @param {number} y1 - Starting Y coordinate (or center Y for circle)
+     * @param {number} x2 - Ending X coordinate (used to calculate dimensions)
+     * @param {number} y2 - Ending Y coordinate (used to calculate dimensions)
+     * @returns {void}
+     */
     drawShape(type, x1, y1, x2, y2) {
         this.ctx.strokeStyle = this.currentColor;
         this.ctx.lineWidth = this.brushSize;
@@ -239,6 +261,15 @@ class Whiteboard {
         }
     }
 
+    /**
+     * Adds a text input box at the specified canvas position.
+     * The text can be edited and finalized to become part of the canvas.
+     *
+     * @param {number} x - X coordinate on the canvas
+     * @param {number} y - Y coordinate on the canvas
+     * @returns {void}
+     * @private
+     */
     addTextInput(x, y) {
         const input = document.createElement('div');
         input.contentEditable = true;
@@ -288,6 +319,13 @@ class Whiteboard {
         }
     }
 
+    /**
+     * Sets the current drawing tool.
+     * Updates the cursor style based on the selected tool.
+     *
+     * @param {string} tool - The tool to use ('select', 'pan', 'draw', 'text', 'rect', 'circle', 'eraser')
+     * @returns {void}
+     */
     setTool(tool) {
         this.currentTool = tool;
 
@@ -303,14 +341,32 @@ class Whiteboard {
         }
     }
 
+    /**
+     * Sets the current drawing color.
+     *
+     * @param {string} color - The color to use (CSS color string)
+     * @returns {void}
+     */
     setColor(color) {
         this.currentColor = color;
     }
 
+    /**
+     * Sets the brush size for drawing operations.
+     *
+     * @param {number} size - The brush size in pixels
+     * @returns {void}
+     */
     setBrushSize(size) {
         this.brushSize = size;
     }
 
+    /**
+     * Zooms in on the canvas by 20%.
+     * Maximum zoom level is 5x (500%).
+     *
+     * @returns {void}
+     */
     zoomIn() {
         this.scale *= 1.2;
         if (this.scale > 5) {
@@ -320,6 +376,12 @@ class Whiteboard {
         this.updateZoomIndicator();
     }
 
+    /**
+     * Zooms out on the canvas by 20%.
+     * Minimum zoom level is 0.1x (10%).
+     *
+     * @returns {void}
+     */
     zoomOut() {
         this.scale *= 0.8;
         if (this.scale < 0.1) {
@@ -329,21 +391,44 @@ class Whiteboard {
         this.updateZoomIndicator();
     }
 
+    /**
+     * Resets the view to default zoom (100%) and centers the canvas.
+     *
+     * @returns {void}
+     */
     resetView() {
         this.scale = 1;
         this.centerCanvas();
         this.updateZoomIndicator();
     }
 
+    /**
+     * Clears all content from the canvas.
+     *
+     * @returns {void}
+     */
     clear() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
+    /**
+     * Renders the canvas content.
+     * Reserved for future use: could re-render stored shapes or implement layers.
+     * Currently, Canvas API handles all rendering directly during draw operations.
+     *
+     * @returns {void}
+     */
     render() {
         // Reserved for future use: could re-render stored shapes or implement layers
         // Currently, Canvas API handles all rendering directly during draw operations
     }
 
+    /**
+     * Captures a screenshot of the visible canvas area.
+     * Returns a data URL that can be downloaded or displayed.
+     *
+     * @returns {string} Data URL of the screenshot in PNG format
+     */
     takeScreenshot() {
         // Create a temporary canvas for the screenshot
         const tempCanvas = document.createElement('canvas');

@@ -1,13 +1,87 @@
-// Windows Manager for floating windows
+/**
+ * @typedef {Object} WindowData
+ * @property {number} id - Unique identifier for the window
+ * @property {HTMLElement} element - The DOM element of the window
+ * @property {string} title - Title displayed in the window header
+ * @property {boolean} isMinimized - Whether the window is minimized
+ * @property {boolean} isMaximized - Whether the window is maximized
+ * @property {Object|null} originalBounds - Original bounds before maximize (for restore)
+ */
+
+/**
+ * @typedef {Object} WindowOptions
+ * @property {number} [x] - X position of the window
+ * @property {number} [y] - Y position of the window
+ * @property {number} [width] - Width of the window
+ * @property {number} [height] - Height of the window
+ */
+
+/**
+ * Manages floating windows for the whiteboard application.
+ * Handles window creation, positioning, z-index management, and window controls
+ * (minimize, maximize, close, drag, resize).
+ *
+ * @class WindowsManager
+ */
 class WindowsManager {
+    /**
+     * Creates an instance of WindowsManager.
+     * Initializes the windows container and sets up initial state.
+     *
+     * @constructor
+     */
     constructor() {
+        /**
+         * @type {WindowData[]}
+         * @private
+         */
         this.windows = [];
+
+        /**
+         * @type {HTMLElement|null}
+         * @private
+         */
         this.container = document.getElementById('windows-container');
+
+        /**
+         * @type {number}
+         * @private
+         */
         this.nextZIndex = 10;
+
+        /**
+         * @type {number|null}
+         * @private
+         */
         this.activeWindow = null;
+
+        /**
+         * @type {number}
+         * @private
+         */
         this.nextWindowId = 1;
     }
 
+    /**
+     * Creates a new floating window with the specified title and content.
+     * Windows are automatically positioned with cascading offsets if no position is specified.
+     *
+     * @param {string} [title='New Window'] - The title for the window
+     * @param {string|HTMLElement} [content=''] - The content to display (string or DOM element)
+     * @param {WindowOptions} [options={}] - Optional positioning and sizing options
+     * @returns {number|null} The ID of the created window, or null if creation failed
+     *
+     * @example
+     * const windowId = windowsManager.createWindow('My Window', 'Hello World');
+     *
+     * @example
+     * const windowId = windowsManager.createWindow('Custom', content, {
+     *   x: 200,
+     *   y: 150,
+     *   width: 500,
+     *   height: 400
+     * });
+     */
     createWindow(title = 'New Window', content = '', options = {}) {
         if (!this.container) {
             this.container = document.getElementById('windows-container');
@@ -175,6 +249,13 @@ class WindowsManager {
         });
     }
 
+    /**
+     * Brings a window to the front by setting its z-index higher than all other windows.
+     * Sets the window as the active window.
+     *
+     * @param {number} windowId - The ID of the window to bring to front
+     * @returns {void}
+     */
     bringToFront(windowId) {
         const window = this.windows.find((w) => w.id === windowId);
         if (!window) {
@@ -185,6 +266,13 @@ class WindowsManager {
         this.activeWindow = windowId;
     }
 
+    /**
+     * Toggles the minimize state of a window.
+     * Minimized windows retain their position but are collapsed to just the title bar.
+     *
+     * @param {number} windowId - The ID of the window to minimize/restore
+     * @returns {void}
+     */
     toggleMinimize(windowId) {
         const window = this.windows.find((w) => w.id === windowId);
         if (!window) {
@@ -195,6 +283,13 @@ class WindowsManager {
         window.element.classList.toggle('minimized', window.isMinimized);
     }
 
+    /**
+     * Toggles the maximize state of a window.
+     * Maximized windows fill the entire viewport. Original bounds are saved for restoration.
+     *
+     * @param {number} windowId - The ID of the window to maximize/restore
+     * @returns {void}
+     */
     toggleMaximize(windowId) {
         const window = this.windows.find((w) => w.id === windowId);
         if (!window) {
@@ -226,6 +321,12 @@ class WindowsManager {
         }
     }
 
+    /**
+     * Closes and removes a window from the DOM and internal tracking.
+     *
+     * @param {number} windowId - The ID of the window to close
+     * @returns {void}
+     */
     closeWindow(windowId) {
         const index = this.windows.findIndex((w) => w.id === windowId);
         if (index === -1) {
@@ -237,6 +338,11 @@ class WindowsManager {
         this.windows.splice(index, 1);
     }
 
+    /**
+     * Closes all open windows and clears the windows array.
+     *
+     * @returns {void}
+     */
     closeAllWindows() {
         this.windows.forEach((window) => {
             window.element.remove();
