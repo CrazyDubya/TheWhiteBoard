@@ -1,7 +1,24 @@
+/**
+ * @file Main application entry point for TheWhiteBoard
+ * Initializes and coordinates the whiteboard, agents, windows, and shared files systems.
+ */
+
+/**
+ * @typedef {Object} SharedFile
+ * @property {number} id - Unique identifier for the file
+ * @property {string} name - File name
+ * @property {string} content - File content
+ * @property {string} createdAt - ISO timestamp of creation
+ */
+
 // Main Application
 let whiteboard;
 let agentsManager;
 let windowsManager;
+
+/**
+ * @type {SharedFile[]}
+ */
 let sharedFiles = [];
 let nextFileId = 1;
 
@@ -33,6 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Users can learn about features from the README or by exploring the UI
 });
 
+/**
+ * Sets up the toolbar event listeners for drawing tools, color picker, brush size,
+ * and action buttons (clear, screenshot, zoom).
+ *
+ * @private
+ * @returns {void}
+ */
 function setupToolbar() {
     // Tool buttons
     const tools = ['select', 'pan', 'draw', 'text', 'rect', 'circle', 'eraser'];
@@ -95,6 +119,13 @@ function setupToolbar() {
     });
 }
 
+/**
+ * Sets up event listeners for the sidebar panels (agents and shared files).
+ * Handles opening and closing of panel UI.
+ *
+ * @private
+ * @returns {void}
+ */
 function setupPanels() {
     // Toggle agents panel
     document.getElementById('toggle-agents').addEventListener('click', () => {
@@ -117,6 +148,13 @@ function setupPanels() {
     });
 }
 
+/**
+ * Sets up event listeners for adding new agents via the agents panel.
+ * Handles agent creation and input validation.
+ *
+ * @private
+ * @returns {void}
+ */
 function setupAgents() {
     document.getElementById('add-agent').addEventListener('click', () => {
         const input = document.getElementById('new-agent-name');
@@ -143,6 +181,13 @@ function setupAgents() {
     });
 }
 
+/**
+ * Sets up event listeners for adding new shared files via the shared files panel.
+ * Handles file creation and input validation.
+ *
+ * @private
+ * @returns {void}
+ */
 function setupSharedFiles() {
     document.getElementById('add-file').addEventListener('click', () => {
         const input = document.getElementById('new-file-name');
@@ -167,6 +212,13 @@ function setupSharedFiles() {
     });
 }
 
+/**
+ * Creates a new shared file and adds it to the shared files array.
+ * Automatically assigns a unique ID and timestamps.
+ *
+ * @param {string} name - The name of the file to create
+ * @returns {SharedFile} The created file object
+ */
 function addSharedFile(name) {
     const fileId = nextFileId++;
     const file = {
@@ -182,12 +234,26 @@ function addSharedFile(name) {
     return file;
 }
 
+/**
+ * Removes a shared file from the shared files array by ID.
+ * Updates localStorage and re-renders the file list.
+ *
+ * @param {number} id - The ID of the file to remove
+ * @returns {void}
+ */
 function removeSharedFile(id) {
     sharedFiles = sharedFiles.filter((f) => f.id !== id);
     saveSharedFiles();
     renderSharedFiles();
 }
 
+/**
+ * Opens a shared file in a floating window.
+ * Automatically saves content changes back to the file.
+ *
+ * @param {number} id - The ID of the file to open
+ * @returns {void}
+ */
 function openSharedFile(id) {
     const file = sharedFiles.find((f) => f.id === id);
     if (!file) {
@@ -219,10 +285,23 @@ function openSharedFile(id) {
     });
 }
 
+/**
+ * Saves the shared files array to localStorage.
+ *
+ * @private
+ * @returns {void}
+ */
 function saveSharedFiles() {
     localStorage.setItem('whiteboard-shared-files', JSON.stringify(sharedFiles));
 }
 
+/**
+ * Loads shared files from localStorage and updates the UI.
+ * Automatically adjusts nextFileId to avoid ID conflicts.
+ *
+ * @private
+ * @returns {void}
+ */
 function loadSharedFiles() {
     const saved = localStorage.getItem('whiteboard-shared-files');
     if (saved) {
@@ -236,6 +315,13 @@ function loadSharedFiles() {
     }
 }
 
+/**
+ * Renders the shared files list in the UI.
+ * Shows empty state if no files exist.
+ *
+ * @private
+ * @returns {void}
+ */
 function renderSharedFiles() {
     const container = document.getElementById('shared-files');
     if (!container) {
@@ -275,6 +361,13 @@ function renderSharedFiles() {
     });
 }
 
+/**
+ * Creates a welcome window with information about TheWhiteBoard features.
+ * Currently disabled due to DOM initialization timing issues.
+ *
+ * @private
+ * @returns {void}
+ */
 function createWelcomeWindow() {
     const welcomeContent = document.createElement('div');
     welcomeContent.innerHTML = `
@@ -304,6 +397,13 @@ function createWelcomeWindow() {
     windowsManager.createWindow('Welcome', welcomeContent, { width: 500, height: 450 });
 }
 
+/**
+ * Displays a temporary notification message in the top-right corner.
+ * Notification automatically fades out after 2 seconds.
+ *
+ * @param {string} message - The message to display
+ * @returns {void}
+ */
 function showNotification(message) {
     // Simple notification system
     const notification = document.createElement('div');
