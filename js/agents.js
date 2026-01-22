@@ -1,11 +1,54 @@
-// Agents Manager
+/**
+ * @typedef {Object} Agent
+ * @property {number} id - Unique identifier for the agent
+ * @property {string} name - Display name of the agent
+ * @property {string} status - Current status ('active' or 'inactive')
+ * @property {string} workspace - Path to agent's workspace directory
+ * @property {string} createdAt - ISO timestamp of agent creation
+ */
+
+/**
+ * @typedef {Object} AgentWorkspace
+ * @property {Array<string>} files - List of files in the workspace
+ * @property {string} notes - Workspace notes
+ * @property {string} lastAccess - ISO timestamp of last access
+ */
+
+/**
+ * Manages the lifecycle and persistence of AI agents.
+ * Each agent has its own workspace and can perform operations on the whiteboard.
+ *
+ * @class AgentsManager
+ */
 class AgentsManager {
+    /**
+     * Creates an instance of AgentsManager.
+     * Automatically loads any previously saved agents from localStorage.
+     *
+     * @constructor
+     */
     constructor() {
+        /**
+         * @type {Agent[]}
+         * @private
+         */
         this.agents = [];
+
+        /**
+         * @type {number}
+         * @private
+         */
         this.nextAgentId = 1;
         this.loadAgents();
     }
 
+    /**
+     * Loads agents from localStorage.
+     * Updates nextAgentId to be one higher than the maximum existing agent ID.
+     *
+     * @private
+     * @returns {void}
+     */
     loadAgents() {
         const saved = localStorage.getItem('whiteboard-agents');
         if (saved) {
@@ -18,10 +61,27 @@ class AgentsManager {
         }
     }
 
+    /**
+     * Saves the current agents array to localStorage.
+     *
+     * @private
+     * @returns {void}
+     */
     saveAgents() {
         localStorage.setItem('whiteboard-agents', JSON.stringify(this.agents));
     }
 
+    /**
+     * Adds a new agent with the specified name.
+     * Creates a workspace for the agent and persists to localStorage.
+     *
+     * @param {string} name - The name for the new agent (whitespace will be trimmed)
+     * @returns {Agent|false} The created agent object, or false if name is empty/whitespace
+     *
+     * @example
+     * const agent = agentsManager.addAgent('Assistant');
+     * // Returns: { id: 1, name: 'Assistant', status: 'active', ... }
+     */
     addAgent(name) {
         if (!name.trim()) {
             return false;
@@ -45,19 +105,44 @@ class AgentsManager {
         return agent;
     }
 
+    /**
+     * Removes an agent by ID.
+     * The agent's workspace is not automatically deleted.
+     *
+     * @param {number} id - The ID of the agent to remove
+     * @returns {void}
+     */
     removeAgent(id) {
         this.agents = this.agents.filter((a) => a.id !== id);
         this.saveAgents();
     }
 
+    /**
+     * Retrieves an agent by ID.
+     *
+     * @param {number} id - The ID of the agent to retrieve
+     * @returns {Agent|undefined} The agent object, or undefined if not found
+     */
     getAgent(id) {
         return this.agents.find((a) => a.id === id);
     }
 
+    /**
+     * Gets all agents.
+     *
+     * @returns {Agent[]} Array of all agent objects
+     */
     getAllAgents() {
         return this.agents;
     }
 
+    /**
+     * Creates a new workspace for an agent in localStorage.
+     * Initializes with empty files array and notes.
+     *
+     * @param {Agent} agent - The agent object for which to create a workspace
+     * @returns {void}
+     */
     createAgentWorkspace(agent) {
         // Create a workspace in localStorage for the agent
         const workspaceKey = `workspace-${agent.id}`;
@@ -69,18 +154,39 @@ class AgentsManager {
         localStorage.setItem(workspaceKey, JSON.stringify(workspace));
     }
 
+    /**
+     * Retrieves an agent's workspace from localStorage.
+     *
+     * @param {number} agentId - The ID of the agent
+     * @returns {AgentWorkspace|null} The workspace object, or null if not found
+     */
     getAgentWorkspace(agentId) {
         const workspaceKey = `workspace-${agentId}`;
         const saved = localStorage.getItem(workspaceKey);
         return saved ? JSON.parse(saved) : null;
     }
 
+    /**
+     * Updates an agent's workspace in localStorage.
+     * Automatically updates the lastAccess timestamp.
+     *
+     * @param {number} agentId - The ID of the agent
+     * @param {AgentWorkspace} workspace - The workspace object to save
+     * @returns {void}
+     */
     updateAgentWorkspace(agentId, workspace) {
         const workspaceKey = `workspace-${agentId}`;
         workspace.lastAccess = new Date().toISOString();
         localStorage.setItem(workspaceKey, JSON.stringify(workspace));
     }
 
+    /**
+     * Renders the list of agents in the specified container.
+     * Creates DOM elements for each agent with view and remove buttons.
+     *
+     * @param {string} containerId - The ID of the DOM container element
+     * @returns {void}
+     */
     renderAgentsList(containerId) {
         const container = document.getElementById(containerId);
         if (!container) {
@@ -124,6 +230,13 @@ class AgentsManager {
         });
     }
 
+    /**
+     * Opens a floating window displaying the agent's workspace information.
+     * Requires windowsManager to be available in the global scope.
+     *
+     * @param {number} agentId - The ID of the agent whose workspace to view
+     * @returns {void}
+     */
     viewWorkspace(agentId) {
         const agent = this.getAgent(agentId);
         if (!agent) {

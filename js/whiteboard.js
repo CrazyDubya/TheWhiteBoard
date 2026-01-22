@@ -1,5 +1,17 @@
 // Whiteboard Class
+/**
+ * Manages an infinite canvas whiteboard with drawing tools, pan, zoom, and screenshot capabilities.
+ * Supports multiple drawing modes including freehand, shapes, text, and eraser.
+ *
+ * @class Whiteboard
+ */
 class Whiteboard {
+    /**
+     * Creates a Whiteboard instance attached to a canvas element.
+     *
+     * @constructor
+     * @param {string} canvasId - The ID of the canvas element
+     */
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext('2d');
