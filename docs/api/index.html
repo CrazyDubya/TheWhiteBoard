@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Home - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/CrazyDubya/TheWhiteBoard" target="_blank" class="menu-item" id="github_link" >GitHub</a></h2><h3>Classes</h3><ul><li><a href="AgentsManager.html">AgentsManager</a><ul class='methods'><li data-type='method' style='display: none;'><a href="AgentsManager.html#addAgent">addAgent</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#createAgentWorkspace">createAgentWorkspace</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#getAgent">getAgent</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#getAgentWorkspace">getAgentWorkspace</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#getAllAgents">getAllAgents</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#removeAgent">removeAgent</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#renderAgentsList">renderAgentsList</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#updateAgentWorkspace">updateAgentWorkspace</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#viewWorkspace">viewWorkspace</a></li></ul></li><li></li><li><a href="Whiteboard.html">Whiteboard</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Whiteboard.html#clear">clear</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#drawLine">drawLine</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#drawShape">drawShape</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#render">render</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#resetView">resetView</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#setBrushSize">setBrushSize</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#setColor">setColor</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#setTool">setTool</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#takeScreenshot">takeScreenshot</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#zoomIn">zoomIn</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#zoomOut">zoomOut</a></li></ul></li><li></li><li><a href="WindowsManager.html">WindowsManager</a><ul class='methods'><li data-type='method' style='display: none;'><a href="WindowsManager.html#bringToFront">bringToFront</a></li><li data-type='method' style='display: none;'><a href="WindowsManager.html#closeAllWindows">closeAllWindows</a></li><li data-type='method' style='display: none;'><a href="WindowsManager.html#closeWindow">closeWindow</a></li><li data-type='method' style='display: none;'><a href="WindowsManager.html#createWindow">createWindow</a></li><li data-type='method' style='display: none;'><a href="WindowsManager.html#toggleMaximize">toggleMaximize</a></li><li data-type='method' style='display: none;'><a href="WindowsManager.html#toggleMinimize">toggleMinimize</a></li></ul></li><li></li></ul><h3>Global</h3><ul><li><a href="global.html#Agent">Agent</a></li><li><a href="global.html#AgentWorkspace">AgentWorkspace</a></li><li><a href="global.html#SharedFile">SharedFile</a></li><li><a href="global.html#WindowData">WindowData</a></li><li><a href="global.html#WindowOptions">WindowOptions</a></li><li><a href="global.html#addSharedFile">addSharedFile</a></li><li><a href="global.html#openSharedFile">openSharedFile</a></li><li><a href="global.html#removeSharedFile">removeSharedFile</a></li><li><a href="global.html#sharedFiles">sharedFiles</a></li><li><a href="global.html#showNotification">showNotification</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+    <section class="package">
+        <h3> </h3>		
+    </section>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    <section class="readme usertext">
+        <article><h1>TheWhiteBoard</h1>
+<p>An ensemble-based agentic communication system where multiple agents exist in their own workspaces with a shared workspace and collaborative whiteboard for visual communication.</p>
+<h2>Features</h2>
+<h3>🎨 Unlimited Whiteboard</h3>
+<ul>
+<li><strong>Infinite Canvas</strong>: Pan and zoom across an unlimited drawing space</li>
+<li><strong>Drawing Tools</strong>: Freehand drawing, shapes (rectangles, circles), text input, and eraser</li>
+<li><strong>WYSIWYG Editing</strong>: Simple, intuitive interface for drawing and editing</li>
+<li><strong>Grid Background</strong>: Visual reference grid for organization</li>
+</ul>
+<h3>🤖 Agent Management</h3>
+<ul>
+<li><strong>Multiple Agents</strong>: Create and manage multiple AI agents</li>
+<li><strong>Private Workspaces</strong>: Each agent has its own isolated workspace</li>
+<li><strong>Agent Status</strong>: Monitor agent activity and workspace information</li>
+</ul>
+<h3>📁 Shared Workspace</h3>
+<ul>
+<li><strong>Common Files</strong>: Shared file system accessible to all agents</li>
+<li><strong>Real-time Editing</strong>: Edit shared files in floating windows</li>
+<li><strong>Persistent Storage</strong>: Files are saved locally using localStorage</li>
+</ul>
+<h3>🪟 Floating Windows</h3>
+<ul>
+<li><strong>Resizable</strong>: Drag edges to resize windows</li>
+<li><strong>Movable</strong>: Click and drag window headers to reposition</li>
+<li><strong>Minimize/Maximize</strong>: Window controls for organization</li>
+<li><strong>Multiple Windows</strong>: Open multiple windows simultaneously</li>
+</ul>
+<h3>📸 Screenshot Capability</h3>
+<ul>
+<li><strong>Capture Board</strong>: Take screenshots of the whiteboard for model consumption</li>
+<li><strong>Downloadable</strong>: Screenshots are saved as PNG images</li>
+<li><strong>Visible Area</strong>: Captures what's currently visible on screen</li>
+</ul>
+<h2>Getting Started</h2>
+<h3>Installation</h3>
+<ol>
+<li>Clone this repository</li>
+<li>Open <code>index.html</code> in a modern web browser</li>
+<li>No server or build process required - it's pure HTML/CSS/JS!</li>
+</ol>
+<h3>Usage</h3>
+<h4>Creating Agents</h4>
+<ol>
+<li>Click the &quot;Agents&quot; button in the header</li>
+<li>Enter an agent name in the input field</li>
+<li>Click &quot;Add Agent&quot;</li>
+<li>Each agent gets a private workspace automatically</li>
+</ol>
+<h4>Using the Whiteboard</h4>
+<ol>
+<li>Select a tool from the toolbar (draw, text, shapes, etc.)</li>
+<li>Choose a color and brush size</li>
+<li>Click and drag on the canvas to draw</li>
+<li>Use pan tool or scroll wheel to navigate</li>
+<li>Zoom in/out using the zoom buttons or scroll wheel</li>
+</ol>
+<h4>Managing Shared Files</h4>
+<ol>
+<li>Click the &quot;Shared Files&quot; button</li>
+<li>Enter a file name and click &quot;Add File&quot;</li>
+<li>Click on a file to open it in a floating window</li>
+<li>Edit content directly in the window - changes are saved automatically</li>
+</ol>
+<h4>Working with Windows</h4>
+<ul>
+<li><strong>Move</strong>: Click and drag the window header</li>
+<li><strong>Resize</strong>: Drag the bottom-right corner</li>
+<li><strong>Minimize</strong>: Click the &quot;-&quot; button</li>
+<li><strong>Maximize</strong>: Click the &quot;□&quot; button</li>
+<li><strong>Close</strong>: Click the &quot;×&quot; button</li>
+</ul>
+<h4>Taking Screenshots</h4>
+<ol>
+<li>Click the camera icon in the toolbar</li>
+<li>The current visible area is captured and downloaded</li>
+<li>Screenshots can be used by models to read the board state</li>
+</ol>
+<h2>Architecture</h2>
+<h3>Directory Structure</h3>
+<pre class="prettyprint source"><code>TheWhiteBoard/
+├── index.html          # Main HTML structure
+├── css/
+│   └── styles.css      # All styling
+├── js/
+│   ├── whiteboard.js   # Canvas and drawing logic
+│   ├── agents.js       # Agent management system
+│   ├── windows.js      # Floating window system
+│   └── app.js          # Main application coordinator
+├── shared_workspace/   # Shared files directory (placeholder)
+└── agents/             # Agent workspaces directory (placeholder)
+</code></pre>
+<h3>Components</h3>
+<h4>Whiteboard Class (<code>whiteboard.js</code>)</h4>
+<ul>
+<li>Manages infinite canvas with pan/zoom</li>
+<li>Handles drawing tools (pen, shapes, text, eraser)</li>
+<li>Supports touch and mouse input</li>
+<li>Screenshot capture functionality</li>
+</ul>
+<h4>AgentsManager Class (<code>agents.js</code>)</h4>
+<ul>
+<li>Creates and manages agent instances</li>
+<li>Maintains private workspaces for each agent</li>
+<li>Stores agent metadata and status</li>
+<li>Uses localStorage for persistence</li>
+</ul>
+<h4>WindowsManager Class (<code>windows.js</code>)</h4>
+<ul>
+<li>Creates floating, resizable windows</li>
+<li>Handles window dragging and resizing</li>
+<li>Manages window z-index and focus</li>
+<li>Window minimize/maximize/close functionality</li>
+</ul>
+<h4>Main Application (<code>app.js</code>)</h4>
+<ul>
+<li>Coordinates all components</li>
+<li>Handles UI interactions</li>
+<li>Manages toolbar and panels</li>
+<li>Implements shared file system</li>
+</ul>
+<h2>Technical Details</h2>
+<h3>Technologies</h3>
+<ul>
+<li><strong>HTML5 Canvas</strong>: For the whiteboard drawing surface</li>
+<li><strong>Vanilla JavaScript</strong>: No frameworks - pure JS for maximum compatibility</li>
+<li><strong>CSS3</strong>: Modern styling with flexbox and grid</li>
+<li><strong>LocalStorage</strong>: For data persistence</li>
+</ul>
+<h3>Browser Compatibility</h3>
+<p>Works in all modern browsers that support:</p>
+<ul>
+<li>HTML5 Canvas</li>
+<li>ES6 JavaScript</li>
+<li>CSS3 Flexbox</li>
+<li>LocalStorage API</li>
+</ul>
+<h3>Data Persistence</h3>
+<ul>
+<li>Agent data stored in <code>localStorage</code> under <code>whiteboard-agents</code></li>
+<li>Agent workspaces stored as <code>workspace-{agentId}</code></li>
+<li>Shared files stored under <code>whiteboard-shared-files</code></li>
+<li>Canvas content is not persisted (by design - use screenshots)</li>
+</ul>
+<h2>Use Cases</h2>
+<ol>
+<li><strong>Multi-Agent Collaboration</strong>: Agents can communicate visually through the whiteboard</li>
+<li><strong>Model Communication</strong>: Take screenshots for AI models to read and interpret</li>
+<li><strong>Visual Planning</strong>: Use the whiteboard for brainstorming and planning</li>
+<li><strong>Document Sharing</strong>: Share files between agents in the common workspace</li>
+<li><strong>Task Organization</strong>: Use floating windows to organize different tasks</li>
+</ol>
+<h2>Future Enhancements</h2>
+<p>Potential improvements:</p>
+<ul>
+<li>Canvas content persistence</li>
+<li>Real-time collaboration (WebSocket)</li>
+<li>Drawing layers</li>
+<li>Undo/redo functionality</li>
+<li>More drawing tools (arrows, highlighter, etc.)</li>
+<li>Export whiteboard to PDF</li>
+<li>Agent-to-agent messaging</li>
+<li>Collaborative editing indicators</li>
+</ul>
+<h2>License</h2>
+<p>MIT License - Feel free to use and modify as needed.</p></article>
+    </section>
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            app.js
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Main application entry point for TheWhiteBoard
+Initializes and coordinates the whiteboard, agents, windows, and shared files systems.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+                <div class="description usertext"><p>Main application entry point for TheWhiteBoard
+Initializes and coordinates the whiteboard, agents, windows, and shared files systems.</p></div>
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+    "source": {
+        "include": ["js"],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(node_modules/|docs)"
+    },
+    "opts": {
+        "destination": "./docs/api",
+        "recurse": true,
+        "readme": "./README.md",
+        "template": "node_modules/docdash"
+    },
+    "plugins": ["plugins/markdown"],
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false,
+        "default": {
+            "outputSourceFiles": true,
+            "includeDate": false
+        }
+    },
+    "docdash": {
+        "static": true,
+        "sort": true,
+        "search": true,
+        "collapse": true,
+        "typedefs": true,
+        "removeQuotes": "none",
+        "scripts": [],
+        "menu": {
+            "GitHub": {
+                "href": "https://github.com/CrazyDubya/TheWhiteBoard",
+                "target": "_blank",
+                "class": "menu-item",
+                "id": "github_link"
+            }
+        }
+    }
+}

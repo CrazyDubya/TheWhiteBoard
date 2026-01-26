@@ -155,6 +155,78 @@ Works in all modern browsers that support:
 - Shared files stored under `whiteboard-shared-files`
 - Canvas content is not persisted (by design - use screenshots)
 
+## Development
+
+### Testing
+
+TheWhiteBoard includes comprehensive test coverage:
+
+```bash
+# Run unit tests
+npm test
+
+# Run unit tests in watch mode
+npm run test:watch
+
+# Generate coverage report
+npm run test:coverage
+
+# Run E2E tests
+npm run test:e2e
+
+# Run E2E tests with visible browser
+npm run test:e2e:headed
+```
+
+**Test Coverage:**
+- 61 unit tests (AgentsManager, WindowsManager, Whiteboard)
+- 22 E2E tests (Whiteboard, Agents, Windows)
+- 83 total tests, 100% passing ✅
+
+### Code Quality
+
+```bash
+# Lint JavaScript files
+npm run lint
+
+# Auto-fix linting issues
+npm run lint:fix
+
+# Format all code
+npm run format
+
+# Check code formatting
+npm run format:check
+```
+
+**Quality Tools:**
+- ESLint for code quality
+- Prettier for consistent formatting
+- Zero linting errors/warnings ✅
+
+### API Documentation
+
+Complete API documentation is available with 100% JSDoc coverage:
+
+```bash
+# Generate API documentation
+npm run docs
+
+# Generate and serve documentation
+npm run docs:serve
+```
+
+Then navigate to `http://localhost:8081` or open `docs/api/index.html` in your browser.
+
+**Documentation Includes:**
+- ✅ All public methods and functions
+- ✅ Type definitions and interfaces
+- ✅ Parameter and return type annotations
+- ✅ Usage examples
+- ✅ IDE autocomplete support via JSDoc
+
+See [`docs/README.md`](docs/README.md) for more information.
+
 ## Use Cases
 
 1. **Multi-Agent Collaboration**: Agents can communicate visually through the whiteboard

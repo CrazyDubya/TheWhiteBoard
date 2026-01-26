@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>app.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/CrazyDubya/TheWhiteBoard" target="_blank" class="menu-item" id="github_link" >GitHub</a></h2><h3>Classes</h3><ul><li><a href="AgentsManager.html">AgentsManager</a><ul class='methods'><li data-type='method' style='display: none;'><a href="AgentsManager.html#addAgent">addAgent</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#createAgentWorkspace">createAgentWorkspace</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#getAgent">getAgent</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#getAgentWorkspace">getAgentWorkspace</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#getAllAgents">getAllAgents</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#removeAgent">removeAgent</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#renderAgentsList">renderAgentsList</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#updateAgentWorkspace">updateAgentWorkspace</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#viewWorkspace">viewWorkspace</a></li></ul></li><li></li><li><a href="Whiteboard.html">Whiteboard</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Whiteboard.html#clear">clear</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#drawLine">drawLine</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#drawShape">drawShape</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#render">render</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#resetView">resetView</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#setBrushSize">setBrushSize</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#setColor">setColor</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#setTool">setTool</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#takeScreenshot">takeScreenshot</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#zoomIn">zoomIn</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#zoomOut">zoomOut</a></li></ul></li><li></li><li><a href="WindowsManager.html">WindowsManager</a><ul class='methods'><li data-type='method' style='display: none;'><a href="WindowsManager.html#bringToFront">bringToFront</a></li><li data-type='method' style='display: none;'><a href="WindowsManager.html#closeAllWindows">closeAllWindows</a></li><li data-type='method' style='display: none;'><a href="WindowsManager.html#closeWindow">closeWindow</a></li><li data-type='method' style='display: none;'><a href="WindowsManager.html#createWindow">createWindow</a></li><li data-type='method' style='display: none;'><a href="WindowsManager.html#toggleMaximize">toggleMaximize</a></li><li data-type='method' style='display: none;'><a href="WindowsManager.html#toggleMinimize">toggleMinimize</a></li></ul></li><li></li></ul><h3>Global</h3><ul><li><a href="global.html#Agent">Agent</a></li><li><a href="global.html#AgentWorkspace">AgentWorkspace</a></li><li><a href="global.html#SharedFile">SharedFile</a></li><li><a href="global.html#WindowData">WindowData</a></li><li><a href="global.html#WindowOptions">WindowOptions</a></li><li><a href="global.html#addSharedFile">addSharedFile</a></li><li><a href="global.html#openSharedFile">openSharedFile</a></li><li><a href="global.html#removeSharedFile">removeSharedFile</a></li><li><a href="global.html#sharedFiles">sharedFiles</a></li><li><a href="global.html#showNotification">showNotification</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">app.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Main application entry point for TheWhiteBoard
+ * Initializes and coordinates the whiteboard, agents, windows, and shared files systems.
+ */
+
+/**
+ * @typedef {Object} SharedFile
+ * @property {number} id - Unique identifier for the file
+ * @property {string} name - File name
+ * @property {string} content - File content
+ * @property {string} createdAt - ISO timestamp of creation
+ */
+
+// Main Application
+let whiteboard;
+let agentsManager;
+let windowsManager;
+
+/**
+ * @type {SharedFile[]}
+ */
+let sharedFiles = [];
+let nextFileId = 1;
+
+// Initialize the application
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize managers
+    whiteboard = new Whiteboard('whiteboard');
+    agentsManager = new AgentsManager();
+    windowsManager = new WindowsManager();
+
+    // Setup toolbar
+    setupToolbar();
+
+    // Setup panels
+    setupPanels();
+
+    // Setup agents
+    setupAgents();
+
+    // Setup shared files
+    setupSharedFiles();
+
+    // Load initial state
+    loadSharedFiles();
+    agentsManager.renderAgentsList('agents-list');
+
+    // Note: Welcome window is disabled due to timing issues with DOM initialization
+    // The window template may not be fully available when this executes
+    // Users can learn about features from the README or by exploring the UI
+});
+
+/**
+ * Sets up the toolbar event listeners for drawing tools, color picker, brush size,
+ * and action buttons (clear, screenshot, zoom).
+ *
+ * @private
+ * @returns {void}
+ */
+function setupToolbar() {
+    // Tool buttons
+    const tools = ['select', 'pan', 'draw', 'text', 'rect', 'circle', 'eraser'];
+    tools.forEach((tool) => {
+        const btn = document.getElementById(`tool-${tool}`);
+        if (btn) {
+            btn.addEventListener('click', () => {
+                // Remove active class from all tools
+                document.querySelectorAll('.tool-btn').forEach((b) => b.classList.remove('active'));
+                // Add active class to clicked tool
+                btn.classList.add('active');
+                // Set tool
+                whiteboard.setTool(tool);
+            });
+        }
+    });
+
+    // Color picker
+    const colorPicker = document.getElementById('color-picker');
+    if (colorPicker) {
+        colorPicker.addEventListener('change', (e) => {
+            whiteboard.setColor(e.target.value);
+        });
+    }
+
+    // Brush size
+    const brushSize = document.getElementById('brush-size');
+    const brushSizeDisplay = document.getElementById('brush-size-display');
+    if (brushSize &amp;&amp; brushSizeDisplay) {
+        brushSize.addEventListener('input', (e) => {
+            whiteboard.setBrushSize(parseInt(e.target.value));
+            brushSizeDisplay.textContent = e.target.value + 'px';
+        });
+    }
+
+    // Clear button
+    document.getElementById('btn-clear').addEventListener('click', () => {
+        if (confirm('Clear the entire whiteboard?')) {
+            whiteboard.clear();
+        }
+    });
+
+    // Screenshot button
+    document.getElementById('btn-screenshot').addEventListener('click', () => {
+        whiteboard.takeScreenshot();
+        showNotification('Screenshot saved!');
+    });
+
+    // Zoom buttons
+    document.getElementById('btn-zoom-in').addEventListener('click', () => {
+        whiteboard.zoomIn();
+    });
+
+    document.getElementById('btn-zoom-out').addEventListener('click', () => {
+        whiteboard.zoomOut();
+    });
+
+    document.getElementById('btn-reset-view').addEventListener('click', () => {
+        whiteboard.resetView();
+    });
+}
+
+/**
+ * Sets up event listeners for the sidebar panels (agents and shared files).
+ * Handles opening and closing of panel UI.
+ *
+ * @private
+ * @returns {void}
+ */
+function setupPanels() {
+    // Toggle agents panel
+    document.getElementById('toggle-agents').addEventListener('click', () => {
+        const panel = document.getElementById('agents-panel');
+        panel.classList.toggle('open');
+    });
+
+    document.getElementById('close-agents').addEventListener('click', () => {
+        document.getElementById('agents-panel').classList.remove('open');
+    });
+
+    // Toggle shared panel
+    document.getElementById('toggle-shared').addEventListener('click', () => {
+        const panel = document.getElementById('shared-panel');
+        panel.classList.toggle('open');
+    });
+
+    document.getElementById('close-shared').addEventListener('click', () => {
+        document.getElementById('shared-panel').classList.remove('open');
+    });
+}
+
+/**
+ * Sets up event listeners for adding new agents via the agents panel.
+ * Handles agent creation and input validation.
+ *
+ * @private
+ * @returns {void}
+ */
+function setupAgents() {
+    document.getElementById('add-agent').addEventListener('click', () => {
+        const input = document.getElementById('new-agent-name');
+        const name = input.value.trim();
+
+        if (!name) {
+            alert('Please enter an agent name');
+            return;
+        }
+
+        const agent = agentsManager.addAgent(name);
+        if (agent) {
+            input.value = '';
+            agentsManager.renderAgentsList('agents-list');
+            showNotification(`Agent "${name}" added successfully!`);
+        }
+    });
+
+    // Allow Enter key to add agent
+    document.getElementById('new-agent-name').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            document.getElementById('add-agent').click();
+        }
+    });
+}
+
+/**
+ * Sets up event listeners for adding new shared files via the shared files panel.
+ * Handles file creation and input validation.
+ *
+ * @private
+ * @returns {void}
+ */
+function setupSharedFiles() {
+    document.getElementById('add-file').addEventListener('click', () => {
+        const input = document.getElementById('new-file-name');
+        const name = input.value.trim();
+
+        if (!name) {
+            alert('Please enter a file name');
+            return;
+        }
+
+        addSharedFile(name);
+        input.value = '';
+        renderSharedFiles();
+        showNotification(`File "${name}" added to shared workspace!`);
+    });
+
+    // Allow Enter key to add file
+    document.getElementById('new-file-name').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            document.getElementById('add-file').click();
+        }
+    });
+}
+
+/**
+ * Creates a new shared file and adds it to the shared files array.
+ * Automatically assigns a unique ID and timestamps.
+ *
+ * @param {string} name - The name of the file to create
+ * @returns {SharedFile} The created file object
+ */
+function addSharedFile(name) {
+    const fileId = nextFileId++;
+    const file = {
+        id: fileId,
+        name: name,
+        content: '',
+        createdAt: new Date().toISOString(),
+        modifiedAt: new Date().toISOString()
+    };
+
+    sharedFiles.push(file);
+    saveSharedFiles();
+    return file;
+}
+
+/**
+ * Removes a shared file from the shared files array by ID.
+ * Updates localStorage and re-renders the file list.
+ *
+ * @param {number} id - The ID of the file to remove
+ * @returns {void}
+ */
+function removeSharedFile(id) {
+    sharedFiles = sharedFiles.filter((f) => f.id !== id);
+    saveSharedFiles();
+    renderSharedFiles();
+}
+
+/**
+ * Opens a shared file in a floating window.
+ * Automatically saves content changes back to the file.
+ *
+ * @param {number} id - The ID of the file to open
+ * @returns {void}
+ */
+function openSharedFile(id) {
+    const file = sharedFiles.find((f) => f.id === id);
+    if (!file) {
+        return;
+    }
+
+    // Create a floating window with the file content
+    const windowId = windowsManager.createWindow(file.name, file.content);
+
+    if (!windowId) {
+        return;
+    }
+
+    // Save content when changed
+    const windowEl = document.getElementById(`window-${windowId}`);
+    if (!windowEl) {
+        return;
+    }
+
+    const textarea = windowEl.querySelector('.window-textarea');
+    if (!textarea) {
+        return;
+    }
+
+    textarea.addEventListener('input', () => {
+        file.content = textarea.value;
+        file.modifiedAt = new Date().toISOString();
+        saveSharedFiles();
+    });
+}
+
+/**
+ * Saves the shared files array to localStorage.
+ *
+ * @private
+ * @returns {void}
+ */
+function saveSharedFiles() {
+    localStorage.setItem('whiteboard-shared-files', JSON.stringify(sharedFiles));
+}
+
+/**
+ * Loads shared files from localStorage and updates the UI.
+ * Automatically adjusts nextFileId to avoid ID conflicts.
+ *
+ * @private
+ * @returns {void}
+ */
+function loadSharedFiles() {
+    const saved = localStorage.getItem('whiteboard-shared-files');
+    if (saved) {
+        sharedFiles = JSON.parse(saved);
+        // Update nextFileId to be higher than any existing file ID
+        if (sharedFiles.length > 0) {
+            const maxId = Math.max(...sharedFiles.map((f) => f.id));
+            nextFileId = maxId + 1;
+        }
+        renderSharedFiles();
+    }
+}
+
+/**
+ * Renders the shared files list in the UI.
+ * Shows empty state if no files exist.
+ *
+ * @private
+ * @returns {void}
+ */
+function renderSharedFiles() {
+    const container = document.getElementById('shared-files');
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = '';
+
+    if (sharedFiles.length === 0) {
+        container.innerHTML =
+            '&lt;p style="color: #7f8c8d; text-align: center;">No shared files yet. Add one to get started!&lt;/p>';
+        return;
+    }
+
+    sharedFiles.forEach((file) => {
+        const fileEl = document.createElement('div');
+        fileEl.className = 'file-item';
+        fileEl.innerHTML = `
+            &lt;div class="file-name">${file.name}&lt;/div>
+            &lt;div class="file-actions">
+                &lt;button class="file-delete-btn">Delete&lt;/button>
+            &lt;/div>
+        `;
+
+        // Open file on click (but not on delete button)
+        fileEl.querySelector('.file-name').addEventListener('click', () => {
+            openSharedFile(file.id);
+        });
+
+        // Delete button
+        fileEl.querySelector('.file-delete-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            removeSharedFile(file.id);
+        });
+
+        container.appendChild(fileEl);
+    });
+}
+
+/**
+ * Creates a welcome window with information about TheWhiteBoard features.
+ * Currently disabled due to DOM initialization timing issues.
+ *
+ * @private
+ * @returns {void}
+ */
+function createWelcomeWindow() {
+    const welcomeContent = document.createElement('div');
+    welcomeContent.innerHTML = `
+        &lt;h2>Welcome to The WhiteBoard!&lt;/h2>
+        &lt;p>This is an ensemble-based agentic communication system.&lt;/p>
+        &lt;h3>Features:&lt;/h3>
+        &lt;ul>
+            &lt;li>&lt;strong>Unlimited Whiteboard:&lt;/strong> Pan, zoom, and draw on an infinite canvas&lt;/li>
+            &lt;li>&lt;strong>Drawing Tools:&lt;/strong> Draw, add text, shapes, and more&lt;/li>
+            &lt;li>&lt;strong>Agent Workspaces:&lt;/strong> Each agent has its own private workspace&lt;/li>
+            &lt;li>&lt;strong>Shared Workspace:&lt;/strong> Common files accessible to all agents&lt;/li>
+            &lt;li>&lt;strong>Floating Windows:&lt;/strong> Organize content with resizable windows&lt;/li>
+            &lt;li>&lt;strong>Screenshots:&lt;/strong> Capture the board for model communication&lt;/li>
+        &lt;/ul>
+        &lt;h3>Getting Started:&lt;/h3>
+        &lt;ol>
+            &lt;li>Add agents using the "Agents" panel&lt;/li>
+            &lt;li>Create shared files in the "Shared Files" panel&lt;/li>
+            &lt;li>Use the toolbar to draw and annotate the whiteboard&lt;/li>
+            &lt;li>Shared files open in floating windows when clicked&lt;/li>
+        &lt;/ol>
+        &lt;p style="margin-top: 20px; color: #7f8c8d; font-size: 12px;">
+            You can close this window and create new ones anytime.
+        &lt;/p>
+    `;
+
+    windowsManager.createWindow('Welcome', welcomeContent, { width: 500, height: 450 });
+}
+
+/**
+ * Displays a temporary notification message in the top-right corner.
+ * Notification automatically fades out after 2 seconds.
+ *
+ * @param {string} message - The message to display
+ * @returns {void}
+ */
+function showNotification(message) {
+    // Simple notification system
+    const notification = document.createElement('div');
+    notification.style.position = 'fixed';
+    notification.style.top = '70px';
+    notification.style.right = '20px';
+    notification.style.background = '#27ae60';
+    notification.style.color = 'white';
+    notification.style.padding = '12px 20px';
+    notification.style.borderRadius = '5px';
+    notification.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+    notification.style.zIndex = '1000';
+    notification.style.animation = 'slideIn 0.3s ease-out';
+    notification.textContent = message;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-in';
+        setTimeout(() => notification.remove(), 300);
+    }, 2000);
+}
+
+// Add CSS for animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// Expose managers to global scope for easy access
+window.whiteboard = whiteboard;
+window.agentsManager = agentsManager;
+window.windowsManager = windowsManager;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>
