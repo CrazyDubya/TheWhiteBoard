@@ -1,4 +1,53 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>agents.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/CrazyDubya/TheWhiteBoard" target="_blank" class="menu-item" id="github_link" >GitHub</a></h2><h3>Classes</h3><ul><li><a href="AgentsManager.html">AgentsManager</a><ul class='methods'><li data-type='method' style='display: none;'><a href="AgentsManager.html#addAgent">addAgent</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#createAgentWorkspace">createAgentWorkspace</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#getAgent">getAgent</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#getAgentWorkspace">getAgentWorkspace</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#getAllAgents">getAllAgents</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#removeAgent">removeAgent</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#renderAgentsList">renderAgentsList</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#updateAgentWorkspace">updateAgentWorkspace</a></li><li data-type='method' style='display: none;'><a href="AgentsManager.html#viewWorkspace">viewWorkspace</a></li></ul></li><li></li><li><a href="Whiteboard.html">Whiteboard</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Whiteboard.html#clear">clear</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#drawLine">drawLine</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#drawShape">drawShape</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#render">render</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#resetView">resetView</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#setBrushSize">setBrushSize</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#setColor">setColor</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#setTool">setTool</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#takeScreenshot">takeScreenshot</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#zoomIn">zoomIn</a></li><li data-type='method' style='display: none;'><a href="Whiteboard.html#zoomOut">zoomOut</a></li></ul></li><li></li><li><a href="WindowsManager.html">WindowsManager</a><ul class='methods'><li data-type='method' style='display: none;'><a href="WindowsManager.html#bringToFront">bringToFront</a></li><li data-type='method' style='display: none;'><a href="WindowsManager.html#closeAllWindows">closeAllWindows</a></li><li data-type='method' style='display: none;'><a href="WindowsManager.html#closeWindow">closeWindow</a></li><li data-type='method' style='display: none;'><a href="WindowsManager.html#createWindow">createWindow</a></li><li data-type='method' style='display: none;'><a href="WindowsManager.html#toggleMaximize">toggleMaximize</a></li><li data-type='method' style='display: none;'><a href="WindowsManager.html#toggleMinimize">toggleMinimize</a></li></ul></li><li></li></ul><h3>Global</h3><ul><li><a href="global.html#Agent">Agent</a></li><li><a href="global.html#AgentWorkspace">AgentWorkspace</a></li><li><a href="global.html#SharedFile">SharedFile</a></li><li><a href="global.html#WindowData">WindowData</a></li><li><a href="global.html#WindowOptions">WindowOptions</a></li><li><a href="global.html#addSharedFile">addSharedFile</a></li><li><a href="global.html#openSharedFile">openSharedFile</a></li><li><a href="global.html#removeSharedFile">removeSharedFile</a></li><li><a href="global.html#sharedFiles">sharedFiles</a></li><li><a href="global.html#showNotification">showNotification</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">agents.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @typedef {Object} Agent
  * @property {number} id - Unique identifier for the agent
  * @property {string} name - Display name of the agent
@@ -9,7 +58,7 @@
 
 /**
  * @typedef {Object} AgentWorkspace
- * @property {Array<string>} files - List of files in the workspace
+ * @property {Array&lt;string>} files - List of files in the workspace
  * @property {string} notes - Workspace notes
  * @property {string} lastAccess - ISO timestamp of last access
  */
@@ -197,7 +246,7 @@ class AgentsManager {
 
         if (this.agents.length === 0) {
             container.innerHTML =
-                '<p style="color: #7f8c8d; text-align: center;">No agents yet. Add one to get started!</p>';
+                '&lt;p style="color: #7f8c8d; text-align: center;">No agents yet. Add one to get started!&lt;/p>';
             return;
         }
 
@@ -205,15 +254,15 @@ class AgentsManager {
             const agentEl = document.createElement('div');
             agentEl.className = 'agent-item';
             agentEl.innerHTML = `
-                <div class="agent-info">
-                    <div class="agent-name">${agent.name}</div>
-                    <div class="agent-status">Status: ${agent.status}</div>
-                    <div class="agent-status">Workspace: ${agent.workspace}</div>
-                </div>
-                <div class="agent-actions">
-                    <button class="agent-view-btn">View</button>
-                    <button class="agent-remove-btn">Remove</button>
-                </div>
+                &lt;div class="agent-info">
+                    &lt;div class="agent-name">${agent.name}&lt;/div>
+                    &lt;div class="agent-status">Status: ${agent.status}&lt;/div>
+                    &lt;div class="agent-status">Workspace: ${agent.workspace}&lt;/div>
+                &lt;/div>
+                &lt;div class="agent-actions">
+                    &lt;button class="agent-view-btn">View&lt;/button>
+                    &lt;button class="agent-remove-btn">Remove&lt;/button>
+                &lt;/div>
             `;
 
             // Add event listeners
@@ -248,15 +297,44 @@ class AgentsManager {
         // Create a floating window to show the workspace
         if (window.windowsManager) {
             const content = `
-                <h4>Agent: ${agent.name}</h4>
-                <p><strong>Workspace:</strong> ${agent.workspace}</p>
-                <p><strong>Status:</strong> ${agent.status}</p>
-                <p><strong>Last Access:</strong> ${workspace ? new Date(workspace.lastAccess).toLocaleString() : 'Never'}</p>
-                <hr>
-                <p>This is the private workspace for ${agent.name}.</p>
-                <p>Files and notes specific to this agent would be stored here.</p>
+                &lt;h4>Agent: ${agent.name}&lt;/h4>
+                &lt;p>&lt;strong>Workspace:&lt;/strong> ${agent.workspace}&lt;/p>
+                &lt;p>&lt;strong>Status:&lt;/strong> ${agent.status}&lt;/p>
+                &lt;p>&lt;strong>Last Access:&lt;/strong> ${workspace ? new Date(workspace.lastAccess).toLocaleString() : 'Never'}&lt;/p>
+                &lt;hr>
+                &lt;p>This is the private workspace for ${agent.name}.&lt;/p>
+                &lt;p>Files and notes specific to this agent would be stored here.&lt;/p>
             `;
             window.windowsManager.createWindow(`${agent.name} Workspace`, content);
         }
     }
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

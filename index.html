@@ -1,148 +1,171 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The WhiteBoard - Agentic Communication System</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <div id="app">
-        <!-- Header -->
-        <header id="header">
-            <div class="header-left">
-                <h1>The WhiteBoard</h1>
-                <span class="subtitle">Agentic Communication System</span>
-            </div>
-            <div class="header-center">
-                <div id="toolbar" class="toolbar">
-                    <button id="tool-select" class="tool-btn active" title="Select">
-                        <svg width="20" height="20" viewBox="0 0 20 20">
-                            <path d="M2 2 L2 15 L6 11 L9 16 L11 15 L8 10 L13 10 Z" fill="currentColor"/>
-                        </svg>
-                    </button>
-                    <button id="tool-pan" class="tool-btn" title="Pan">
-                        <svg width="20" height="20" viewBox="0 0 20 20">
-                            <path d="M10 2 L10 18 M2 10 L18 10" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </button>
-                    <button id="tool-draw" class="tool-btn" title="Draw">
-                        <svg width="20" height="20" viewBox="0 0 20 20">
-                            <path d="M2 18 L18 2" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </button>
-                    <button id="tool-text" class="tool-btn" title="Text">
-                        <svg width="20" height="20" viewBox="0 0 20 20">
-                            <text x="5" y="15" font-size="16" fill="currentColor">A</text>
-                        </svg>
-                    </button>
-                    <button id="tool-rect" class="tool-btn" title="Rectangle">
-                        <svg width="20" height="20" viewBox="0 0 20 20">
-                            <rect x="3" y="3" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </button>
-                    <button id="tool-circle" class="tool-btn" title="Circle">
-                        <svg width="20" height="20" viewBox="0 0 20 20">
-                            <circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </button>
-                    <button id="tool-eraser" class="tool-btn" title="Eraser">
-                        <svg width="20" height="20" viewBox="0 0 20 20">
-                            <rect x="8" y="2" width="8" height="12" fill="currentColor" transform="rotate(45 10 10)"/>
-                        </svg>
-                    </button>
-                    <div class="separator"></div>
-                    <input type="color" id="color-picker" value="#000000" title="Color">
-                    <input type="range" id="brush-size" min="1" max="50" value="3" title="Brush Size">
-                    <span id="brush-size-display">3px</span>
-                    <div class="separator"></div>
-                    <button id="btn-clear" class="tool-btn" title="Clear Board">
-                        <svg width="20" height="20" viewBox="0 0 20 20">
-                            <path d="M4 4 L16 16 M16 4 L4 16" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </button>
-                    <button id="btn-screenshot" class="tool-btn" title="Take Screenshot">
-                        <svg width="20" height="20" viewBox="0 0 20 20">
-                            <rect x="2" y="4" width="16" height="12" fill="none" stroke="currentColor" stroke-width="2"/>
-                            <circle cx="10" cy="10" r="3" fill="currentColor"/>
-                        </svg>
-                    </button>
-                    <button id="btn-zoom-in" class="tool-btn" title="Zoom In">+</button>
-                    <button id="btn-zoom-out" class="tool-btn" title="Zoom Out">-</button>
-                    <button id="btn-reset-view" class="tool-btn" title="Reset View">⟲</button>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>The WhiteBoard - Agentic Communication System</title>
+        <link rel="stylesheet" href="css/styles.css" />
+    </head>
+    <body>
+        <div id="app">
+            <!-- Header -->
+            <header id="header">
+                <div class="header-left">
+                    <h1>The WhiteBoard</h1>
+                    <span class="subtitle">Agentic Communication System</span>
                 </div>
-            </div>
-            <div class="header-right">
-                <button id="toggle-agents" class="btn">Agents</button>
-                <button id="toggle-shared" class="btn">Shared Files</button>
-            </div>
-        </header>
-
-        <!-- Main Content Area -->
-        <div id="main-content">
-            <!-- Sidebar for Agents -->
-            <aside id="agents-panel" class="panel">
-                <div class="panel-header">
-                    <h3>Agents</h3>
-                    <button id="close-agents" class="close-btn">×</button>
-                </div>
-                <div class="panel-content">
-                    <div class="agent-controls">
-                        <input type="text" id="new-agent-name" placeholder="Agent name...">
-                        <button id="add-agent">Add Agent</button>
+                <div class="header-center">
+                    <div id="toolbar" class="toolbar">
+                        <button id="tool-select" class="tool-btn active" title="Select">
+                            <svg width="20" height="20" viewBox="0 0 20 20">
+                                <path d="M2 2 L2 15 L6 11 L9 16 L11 15 L8 10 L13 10 Z" fill="currentColor" />
+                            </svg>
+                        </button>
+                        <button id="tool-pan" class="tool-btn" title="Pan">
+                            <svg width="20" height="20" viewBox="0 0 20 20">
+                                <path d="M10 2 L10 18 M2 10 L18 10" stroke="currentColor" stroke-width="2" />
+                            </svg>
+                        </button>
+                        <button id="tool-draw" class="tool-btn" title="Draw">
+                            <svg width="20" height="20" viewBox="0 0 20 20">
+                                <path d="M2 18 L18 2" stroke="currentColor" stroke-width="2" />
+                            </svg>
+                        </button>
+                        <button id="tool-text" class="tool-btn" title="Text">
+                            <svg width="20" height="20" viewBox="0 0 20 20">
+                                <text x="5" y="15" font-size="16" fill="currentColor">A</text>
+                            </svg>
+                        </button>
+                        <button id="tool-rect" class="tool-btn" title="Rectangle">
+                            <svg width="20" height="20" viewBox="0 0 20 20">
+                                <rect
+                                    x="3"
+                                    y="3"
+                                    width="14"
+                                    height="14"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                />
+                            </svg>
+                        </button>
+                        <button id="tool-circle" class="tool-btn" title="Circle">
+                            <svg width="20" height="20" viewBox="0 0 20 20">
+                                <circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="2" />
+                            </svg>
+                        </button>
+                        <button id="tool-eraser" class="tool-btn" title="Eraser">
+                            <svg width="20" height="20" viewBox="0 0 20 20">
+                                <rect
+                                    x="8"
+                                    y="2"
+                                    width="8"
+                                    height="12"
+                                    fill="currentColor"
+                                    transform="rotate(45 10 10)"
+                                />
+                            </svg>
+                        </button>
+                        <div class="separator"></div>
+                        <input type="color" id="color-picker" value="#000000" title="Color" />
+                        <input type="range" id="brush-size" min="1" max="50" value="3" title="Brush Size" />
+                        <span id="brush-size-display">3px</span>
+                        <div class="separator"></div>
+                        <button id="btn-clear" class="tool-btn" title="Clear Board">
+                            <svg width="20" height="20" viewBox="0 0 20 20">
+                                <path d="M4 4 L16 16 M16 4 L4 16" stroke="currentColor" stroke-width="2" />
+                            </svg>
+                        </button>
+                        <button id="btn-screenshot" class="tool-btn" title="Take Screenshot">
+                            <svg width="20" height="20" viewBox="0 0 20 20">
+                                <rect
+                                    x="2"
+                                    y="4"
+                                    width="16"
+                                    height="12"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                />
+                                <circle cx="10" cy="10" r="3" fill="currentColor" />
+                            </svg>
+                        </button>
+                        <button id="btn-zoom-in" class="tool-btn" title="Zoom In">+</button>
+                        <button id="btn-zoom-out" class="tool-btn" title="Zoom Out">-</button>
+                        <button id="btn-reset-view" class="tool-btn" title="Reset View">⟲</button>
                     </div>
-                    <div id="agents-list" class="agents-list"></div>
                 </div>
-            </aside>
+                <div class="header-right">
+                    <button id="toggle-agents" class="btn">Agents</button>
+                    <button id="toggle-shared" class="btn">Shared Files</button>
+                </div>
+            </header>
 
-            <!-- Whiteboard Container -->
-            <div id="whiteboard-container">
-                <div id="canvas-wrapper">
-                    <canvas id="whiteboard"></canvas>
-                    <!-- Floating Windows Container -->
-                    <div id="windows-container"></div>
+            <!-- Main Content Area -->
+            <div id="main-content">
+                <!-- Sidebar for Agents -->
+                <aside id="agents-panel" class="panel">
+                    <div class="panel-header">
+                        <h3>Agents</h3>
+                        <button id="close-agents" class="close-btn">×</button>
+                    </div>
+                    <div class="panel-content">
+                        <div class="agent-controls">
+                            <input type="text" id="new-agent-name" placeholder="Agent name..." />
+                            <button id="add-agent">Add Agent</button>
+                        </div>
+                        <div id="agents-list" class="agents-list"></div>
+                    </div>
+                </aside>
+
+                <!-- Whiteboard Container -->
+                <div id="whiteboard-container">
+                    <div id="canvas-wrapper">
+                        <canvas id="whiteboard"></canvas>
+                        <!-- Floating Windows Container -->
+                        <div id="windows-container"></div>
+                    </div>
+                    <div id="zoom-indicator">100%</div>
                 </div>
-                <div id="zoom-indicator">100%</div>
+
+                <!-- Sidebar for Shared Files -->
+                <aside id="shared-panel" class="panel">
+                    <div class="panel-header">
+                        <h3>Shared Workspace</h3>
+                        <button id="close-shared" class="close-btn">×</button>
+                    </div>
+                    <div class="panel-content">
+                        <div class="file-controls">
+                            <input type="text" id="new-file-name" placeholder="File name..." />
+                            <button id="add-file">Add File</button>
+                        </div>
+                        <div id="shared-files" class="file-list"></div>
+                    </div>
+                </aside>
             </div>
 
-            <!-- Sidebar for Shared Files -->
-            <aside id="shared-panel" class="panel">
-                <div class="panel-header">
-                    <h3>Shared Workspace</h3>
-                    <button id="close-shared" class="close-btn">×</button>
-                </div>
-                <div class="panel-content">
-                    <div class="file-controls">
-                        <input type="text" id="new-file-name" placeholder="File name...">
-                        <button id="add-file">Add File</button>
+            <!-- Floating Window Template -->
+            <template id="window-template">
+                <div class="floating-window">
+                    <div class="window-header">
+                        <span class="window-title">Window</span>
+                        <div class="window-controls">
+                            <button class="window-minimize">−</button>
+                            <button class="window-maximize">□</button>
+                            <button class="window-close">×</button>
+                        </div>
                     </div>
-                    <div id="shared-files" class="file-list"></div>
+                    <div class="window-content">
+                        <textarea class="window-textarea" placeholder="Enter content..."></textarea>
+                    </div>
+                    <div class="window-resize-handle"></div>
                 </div>
-            </aside>
+            </template>
         </div>
 
-        <!-- Floating Window Template -->
-        <template id="window-template">
-            <div class="floating-window">
-                <div class="window-header">
-                    <span class="window-title">Window</span>
-                    <div class="window-controls">
-                        <button class="window-minimize">−</button>
-                        <button class="window-maximize">□</button>
-                        <button class="window-close">×</button>
-                    </div>
-                </div>
-                <div class="window-content">
-                    <textarea class="window-textarea" placeholder="Enter content..."></textarea>
-                </div>
-                <div class="window-resize-handle"></div>
-            </div>
-        </template>
-    </div>
-
-    <script src="js/whiteboard.js"></script>
-    <script src="js/agents.js"></script>
-    <script src="js/windows.js"></script>
-    <script src="js/app.js"></script>
-</body>
+        <script src="js/whiteboard.js"></script>
+        <script src="js/agents.js"></script>
+        <script src="js/windows.js"></script>
+        <script src="js/app.js"></script>
+    </body>
 </html>
